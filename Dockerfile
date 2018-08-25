@@ -1,4 +1,4 @@
-FROM atlassian/default-image:latest
+FROM ubuntu:18.04
 
 RUN \
 
