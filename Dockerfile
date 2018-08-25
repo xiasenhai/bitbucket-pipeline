@@ -1,15 +1,10 @@
-FROM ubuntu:18.04
+FROM atlassian/default-image
 
 RUN \
 
-  # install JDK 8
-  sudo apt-get install --reinstall ca-certificates && \
-  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-  add-apt-repository -y ppa:webupd8team/java && \
-  apt-get update && \
-  apt-get install -y oracle-java8-installer && \
-  rm -rf /var/lib/apt/lists/* && \
-  rm -rf /var/cache/oracle-jdk8-installer && \
+  # uninstall npm
+  npm uninstall npm -g &&\
+  rm -rf /usr/local/{lib/node{,/.npm,_modules},bin,share/man}/npm* &&\
 
   # install utilities
   apt-get install -y \
@@ -24,7 +19,7 @@ RUN \
    
   # install node
   curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -  && \
-  sudo apt-get install -y nodejs  && \
+  apt-get install -y nodejs  && \
 
   # upgrade npm
   npm install -g npm && \
@@ -38,8 +33,8 @@ RUN \
   # install yarn
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && \
-  sudo apt-get update && \
-  sudo apt-get install yarn && \
+  apt-get update && \
+  apt-get install yarn && \
   
   # cleanup
   apt-get clean && \
