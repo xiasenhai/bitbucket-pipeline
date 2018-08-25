@@ -1,4 +1,4 @@
-FROM atlassian/default-image
+FROM atlassian/default-image:2
 
 RUN \
 
